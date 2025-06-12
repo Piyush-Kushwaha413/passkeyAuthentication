@@ -43,7 +43,7 @@ app.post("/register-challenge", async (req, res) => {
   const user = userStore[userId];
 //   console.log("line 32 ", userStore);
   const challengePayload = await generateRegistrationOptions({
-    rpID: "localhost",
+    rpID: "passkeyauthentication.onrender.com",
     rpName: "My cloud Machine",
     userName: user.username,
   });
