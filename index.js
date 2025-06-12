@@ -85,7 +85,7 @@ app.post("/register-verify", async (req, res) => {
       return res.status(404).json({ error: " user not found" });
 
     const opts = await generateAuthenticationOptions({
-      rpID: "localhost",
+      rpID: "passkeyauthentication.onrender.com",
     });
 
     console.log("api called");
