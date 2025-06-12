@@ -1,0 +1,18 @@
+{
+  "name": "javascript-pass-key",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon  index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "dependencies": {
+    "@simplewebauthn/server": "^13.1.1",
+    "express": "^5.1.0"
+  }
+}

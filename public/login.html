@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>login page</title>
+  </head>
+  <body>
+    <form action="" id="login-form">
+      <input type="text" placeholder="UserId" id="userId" />
+
+      <button type="submit">submit</button>
+    </form>
+
+    <script src="https://unpkg.com/@simplewebauthn/browser/dist/bundle/index.es5.umd.min.js"></script>
+    
+    <script>
+      const form = document.getElementById("login-form");
+      const userIdField = document.getElementById("userId");
+
+    //   using this we get the challene to fullfill
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+
+
+       const authChallenge =  await fetch("/login-challenge", {
+          method: "POST",
+          headers: {
+            "content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: userIdField.value,
+          }),
+        });
+
+        console.log("line 34", authChallenge);
+        const authChallengeResult = await authChallenge.json()
+        const {option} = authChallengeResult; // or authChallengeResult.options depending on your server
+
+console.log("Authentication options:", option);
+
+// Start authentication
+const authChallengeRes = await SimpleWebAuthnBrowser.startAuthentication( option );
+console.log("Authentication authChallengeRes:", authChallengeRes);
+
+        await fetch("/login-verify", {
+          method: "POST",
+          headers: {
+            "content-Type": "application/json",
+          },
+          body: JSON.stringify({ userId: userIdField.value ,  cred: authChallengeRes }),
+        });
+
+
+
+      });
+    </script>
+  </body>
+</html>
